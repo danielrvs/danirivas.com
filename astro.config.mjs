@@ -7,7 +7,7 @@ import compress from 'astro-compress';
 // https://astro.build/config
 export default defineConfig({
   // Configuración del sitio
-  site: 'https://danielrivas.com',
+  site: 'https://danirivas.com',
   trailingSlash: 'ignore',
   
   // Integraciones
@@ -52,7 +52,7 @@ export default defineConfig({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     },
     optimizeDeps: {
-      include: ['@astrojs/mdx', 'astro'],
+      include: ['@astrojs/mdx'],
       exclude: ['@resvg/resvg-js'],
     },
     css: {
