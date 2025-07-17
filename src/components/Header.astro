@@ -1,0 +1,16 @@
+---
+const { title = 'Daniel Rivas' } = Astro.props;
+---
+
+<header class="fixed top-0 w-full bg-[#0a0a0a] bg-opacity-95 backdrop-blur-md z-50 py-4 border-b border-fuchsia-500">
+  <nav class="max-w-7xl mx-auto px-8 flex justify-between items-center">
+    <a href="/" class="text-2xl font-bold text-fuchsia-500 font-['Orbitron'] tracking-wider hover:text-cyan-400 transition-colors">DR</a>
+    <ul class="hidden md:flex gap-8">
+      <li><a href="#inicio" class="text-white hover:text-fuchsia-500 transition-colors">Inicio</a></li>
+      <li><a href="#skills" class="text-white hover:text-fuchsia-500 transition-colors">Skills</a></li>
+      <li><a href="#experiencia" class="text-white hover:text-fuchsia-500 transition-colors">Experiencia</a></li>
+      <li><a href="#portfolio" class="text-white hover:text-fuchsia-500 transition-colors">Portfolio</a></li>
+      <li><a href="#contacto" class="text-white hover:text-fuchsia-500 transition-colors">Contacto</a></li>
+    </ul>
+  </nav>
+</header>

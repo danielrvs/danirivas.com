@@ -1,0 +1,93 @@
+---
+// Componente Experience para mostrar la línea de tiempo de experiencia
+const experiences = [
+  {
+    year: '2021 - Presente',
+    title: 'Tech Lead - Bmotion AV',
+    description: 'Lidero el desarrollo de soluciones tecnológicas innovadoras, superviso equipos de desarrollo y arquitecto sistemas escalables para proyectos de alta complejidad.'
+  },
+  {
+    year: '2019 - 2021',
+    title: 'Full Stack Developer - Bmotion AV',
+    description: 'Desarrollé aplicaciones web completas utilizando tecnologías modernas, implementé APIs RESTful y optimicé bases de datos para mejorar el rendimiento.'
+  },
+  {
+    year: '2018 - 2019',
+    title: 'Desarrollador Web Junior',
+    description: 'Comencé mi carrera desarrollando sitios web dinámicos y aprendiendo las mejores prácticas del desarrollo full stack.'
+  }
+];
+---
+
+<section class="py-20 bg-[#0a0a0a] relative" id="experiencia">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-4xl font-bold text-center mb-16 text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-500 to-cyan-400 font-['Orbitron']">
+      EXPERIENCIA
+    </h2>
+    
+    <div class="relative">
+      {/* Línea vertical central */}
+      <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-fuchsia-500 to-cyan-500 transform -translate-x-1/2"></div>
+      
+      {/* Elementos de la línea de tiempo */}
+      <div class="space-y-16">
+        {experiences.map((exp, index) => (
+          <div class={`relative ${index % 2 === 0 ? 'pr-8 md:pr-0 md:pl-8' : 'pl-8 md:pl-0 md:pr-8 md:text-right'}`}>
+            <div class={`relative max-w-md mx-auto md:mx-0 ${index % 2 === 0 ? 'md:ml-auto md:mr-8' : 'md:mr-auto md:ml-8'}`}>
+              {/* Punto en la línea de tiempo */}
+              <div class={`absolute top-1/2 w-4 h-4 rounded-full bg-fuchsia-500 transform -translate-y-1/2 ${index % 2 === 0 ? '-right-12' : '-left-12'} shadow-glow`}></div>
+              
+              {/* Contenido de la experiencia */}
+              <div class="bg-[#1a1a1a] border border-fuchsia-500 rounded-lg p-6 relative overflow-hidden group hover:border-cyan-400 transition-all duration-300">
+                {/* Efecto de brillo al pasar el ratón */}
+                <div class="absolute inset-0 bg-gradient-to-r from-fuchsia-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                <div class="relative z-10">
+                  <span class="text-cyan-400 font-mono text-sm">{exp.year}</span>
+                  <h3 class="text-xl font-bold text-white mt-1 mb-3">{exp.title}</h3>
+                  <p class="text-gray-300">{exp.description}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .shadow-glow {
+    box-shadow: 0 0 15px 2px rgba(255, 0, 255, 0.7);
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 255, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 0, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 255, 0); }
+  }
+  
+  /* Ajustes para móviles */
+  @media (max-width: 768px) {
+    .relative:before {
+      left: 1.5rem !important;
+    }
+    
+    .relative {
+      padding-left: 3rem !important;
+      padding-right: 0 !important;
+      text-align: left !important;
+    }
+    
+    .relative > div {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+    
+    .absolute {
+      left: 0 !important;
+      right: auto !important;
+    }
+  }
+</style>

@@ -1,0 +1,151 @@
+---
+// Componente para manejar el código Konami
+---
+
+<!-- Este componente no renderiza nada, solo maneja la lógica -->
+
+<script>
+  // Código Konami: ↑↑↓↓←→←→BA
+  const konamiCode = [
+    'ArrowUp', 'ArrowUp',
+    'ArrowDown', 'ArrowDown',
+    'ArrowLeft', 'ArrowRight',
+    'ArrowLeft', 'ArrowRight',
+    'KeyB', 'KeyA'
+  ];
+  
+  let konamiIndex = 0;
+  
+  // Función para activar el modo secreto
+  function activateSecretMode() {
+    console.log('Activando modo secreto...');
+    
+    // Agregar clase al body para activar estilos especiales
+    document.body.classList.add('konami-activated');
+    
+    // Crear y mostrar notificación
+    const notification = document.createElement('div');
+    notification.style.position = 'fixed';
+    notification.style.top = '1rem';
+    notification.style.left = '50%';
+    notification.style.transform = 'translateX(-50%)';
+    notification.style.backgroundColor = '#ff00ff';
+    notification.style.color = 'black';
+    notification.style.padding = '0.75rem 1.5rem';
+    notification.style.borderRadius = '0.5rem';
+    notification.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+    notification.style.zIndex = '9999';
+    notification.style.fontWeight = 'bold';
+    notification.style.animation = 'bounce 1s infinite';
+    notification.textContent = '¡Modo Secreto Activado! 🚀';
+    
+    document.body.appendChild(notification);
+    
+    // Eliminar notificación después de 3 segundos
+    setTimeout(() => {
+      notification.style.opacity = '0';
+      notification.style.transition = 'opacity 0.5s ease-out';
+      setTimeout(() => {
+        notification.remove();
+      }, 500);
+    }, 3000);
+    
+    // Efectos visuales
+    const colors = ['#ff00ff', '#00ffff', '#ffff00', '#00ff00', '#ff00ff'];
+    let colorIndex = 0;
+    
+    const interval = setInterval(() => {
+      const color = colors[colorIndex % colors.length];
+      document.documentElement.style.setProperty('--neon-pink', color);
+      
+      // Actualizar colores de los elementos con clase text-neon-pink y bg-neon-pink
+      const textElements = document.querySelectorAll('.text-neon-pink');
+      const bgElements = document.querySelectorAll('.bg-neon-pink');
+      
+      textElements.forEach(el => {
+        el.style.color = color;
+        el.style.textShadow = `0 0 10px ${color}, 0 0 20px ${color}`;
+      });
+      
+      bgElements.forEach(el => {
+        el.style.backgroundColor = color;
+        el.style.boxShadow = `0 0 15px ${color}, 0 0 30px ${color}`;
+      });
+      
+      colorIndex++;
+    }, 200);
+    
+    // Detener efectos después de 20 segundos
+    setTimeout(() => {
+      clearInterval(interval);
+      document.body.classList.remove('konami-activated');
+      
+      // Restaurar estilos
+      const textElements = document.querySelectorAll('.text-neon-pink');
+      const bgElements = document.querySelectorAll('.bg-neon-pink');
+      
+      textElements.forEach(el => {
+        el.style.color = '';
+        el.style.textShadow = '';
+      });
+      
+      bgElements.forEach(el => {
+        el.style.backgroundColor = '';
+        el.style.boxShadow = '';
+      });
+      
+      document.documentElement.style.removeProperty('--neon-pink');
+    }, 20000);
+  }
+  
+  // Escuchar teclas
+  document.addEventListener('keydown', (e) => {
+    // Verificar si la tecla presionada coincide con el código Konami
+    if (e.code === konamiCode[konamiIndex]) {
+      konamiIndex++;
+      
+      // Si se completó el código
+      if (konamiIndex === konamiCode.length) {
+        konamiIndex = 0;
+        activateSecretMode();
+      }
+    } else {
+      // Reiniciar si la secuencia es incorrecta
+      konamiIndex = 0;
+    }
+  });
+</script>
+
+<style>
+  /* Estilos para el modo Konami */
+  .konami-activated {
+    --neon-pink: #ff00ff;
+    animation: colorPulse 2s infinite alternate;
+  }
+  
+  .konami-activated .text-neon-pink {
+    color: var(--neon-pink) !important;
+    text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+  }
+  
+  .konami-activated .bg-neon-pink {
+    background-color: var(--neon-pink) !important;
+    box-shadow: 0 0 15px var(--neon-pink), 0 0 30px var(--neon-pink);
+  }
+  
+  @keyframes colorPulse {
+    0% { --neon-pink: #ff00ff; }
+    20% { --neon-pink: #ff0000; }
+    40% { --neon-pink: #ff9900; }
+    60% { --neon-pink: #33cc33; }
+    80% { --neon-pink: #3399ff; }
+    100% { --neon-pink: #cc66ff; }
+  }
+  
+  /* Asegurar que las animaciones funcionen en todos los navegadores */
+  @property --neon-pink {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #ff00ff;
+  }
+</style>

@@ -1,0 +1,72 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    // Configuración básica
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "types": ["astro/client", "vite/client"],
+    
+    // Configuración de rutas de importación
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
+    "checkJs": true,
+    
+    // Configuración de JSX
+    "jsxImportSource": "react",
+    
+    // Configuración de resolución de módulos
+    "moduleDetection": "force",
+    "allowImportingTsExtensions": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    
+    // Configuración de emisión de código
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true
+  },
+  "include": [
+    ".astro/types.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.astro",
+    "**/*.d.ts",
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.mjs",
+    "**/*.cjs"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    ".astro",
+    ".vercel",
+    ".netlify",
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/bower_components",
+    "**/dist-*/"
+  ],
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  }
+}

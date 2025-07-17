@@ -1,0 +1,266 @@
+---
+// Importar componentes
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Skills from '../components/Skills.astro';
+import Experience from '../components/Experience.astro';
+import Portfolio from '../components/Portfolio.astro';
+import Contact from '../components/Contact.astro';
+import KonamiCode from '../components/KonamiCode.astro';
+
+// Importar estilos globales
+import '../styles/global.css';
+
+// Título de la página
+export const prerender = true;
+
+// Configuración de la página
+const title = 'Daniel Rivas | Full Stack Developer';
+const description = 'Desarrollador Full Stack especializado en crear experiencias web modernas y escalables.';
+const image = '/social-preview.jpg';
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    <meta name="description" content={description}>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://danielrivas.com/">
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    <meta property="og:image" content={image}>
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://danielrivas.com/">
+    <meta property="twitter:title" content={title}>
+    <meta property="twitter:description" content={description}>
+    <meta property="twitter:image" content={image}>
+    
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+    
+    <style>
+        /* Estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --neon-magenta: #ff00ff;
+            --dark-magenta: #a0007a;
+            --neon-cyan: #00ffff;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+        }
+        
+        body {
+            font-family: 'Fira Code', monospace;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--darker-bg);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-magenta);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-cyan);
+        }
+        
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        /* Clases de utilidad */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .section {
+            padding: 6rem 0;
+        }
+        
+        /* Efecto de brillo al pasar el ratón */
+        .glow-on-hover {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glow-on-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), 
+                          rgba(255, 0, 255, 0.1) 0%, 
+                          transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        
+        .glow-on-hover:hover::before {
+            opacity: 1;
+        }
+        
+        /* Efecto de máquina de escribir */
+        @keyframes blink {
+            0%, 50% { border-color: var(--neon-magenta); }
+            51%, 100% { border-color: transparent; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section {
+                padding: 4rem 0;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    {/* Pantalla de carga */}
+    <div id="loading" class="fixed inset-0 bg-[#0a0a0a] flex flex-col items-center justify-center z-[9999] transition-opacity duration-500">
+        <div class="text-center">
+            <div class="text-2xl md:text-4xl font-bold text-fuchsia-500 mb-6 font-['Orbitron'] animate-pulse">
+                CARGANDO SISTEMA...
+            </div>
+            <div class="w-64 h-1 bg-gray-800 rounded-full overflow-hidden mx-auto">
+                <div id="loading-bar" class="h-full bg-gradient-to-r from-fuchsia-500 to-cyan-500 transition-all duration-1000" style="width: 0%"></div>
+            </div>
+            <div id="loading-message" class="mt-4 text-cyan-400 text-sm font-mono">Inicializando módulos...</div>
+        </div>
+    </div>
+
+    {/* Contenido principal */}
+    <main>
+        <Header />
+        <Hero />
+        <Skills />
+        <Experience />
+        <Portfolio />
+        <Contact />
+    </main>
+    
+    {/* Script para la pantalla de carga */}
+    <script>
+        // Pantalla de carga
+        document.addEventListener('DOMContentLoaded', () => {
+            const loading = document.getElementById('loading');
+            const loadingBar = document.getElementById('loading-bar');
+            const loadingMessage = document.getElementById('loading-message');
+            
+            const messages = [
+                'Cargando módulos del sistema...',
+                'Verificando credenciales...',
+                'Estableciendo conexión neural...',
+                'Activando interfaz holográfica...',
+                'Sistema listo'
+            ];
+            
+            let progress = 0;
+            let currentMessage = 0;
+            
+            function updateLoading() {
+                if (progress < 100) {
+                    progress += Math.random() * 3 + 1;
+                    if (progress > 100) progress = 100;
+                    
+                    loadingBar.style.width = progress + '%';
+                    
+                    // Actualizar mensaje cada 20%
+                    const messageIndex = Math.floor(progress / 20);
+                    if (messageIndex > currentMessage && messageIndex <= messages.length) {
+                        currentMessage = messageIndex;
+                        loadingMessage.textContent = messages[messageIndex - 1];
+                    }
+                    
+                    requestAnimationFrame(updateLoading);
+                } else {
+                    loading.style.opacity = '0';
+                    setTimeout(() => {
+                        loading.style.display = 'none';
+                    }, 500);
+                }
+            }
+            
+            // Iniciar la animación de carga
+            setTimeout(updateLoading, 500);
+            
+            // Efecto de brillo al pasar el ratón
+            document.querySelectorAll('.glow-on-hover').forEach(element => {
+                element.addEventListener('mousemove', (e) => {
+                    const rect = element.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    element.style.setProperty('--x', `${x}%`);
+                    element.style.setProperty('--y', `${y}%`);
+                });
+            });
+            
+            // Efecto de scroll suave para enlaces internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <!-- Componente del código Konami -->
+    <KonamiCode />
+  </body>
+</html>
